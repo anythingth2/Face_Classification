@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import os
 import time
-
+from imgaug import augmenters as iaa
 
 datasets_path = 'datasets'
 
@@ -34,4 +34,22 @@ def load_datasets():
     class_labels = np.array(class_labels)
 
     return (datasets, class_labels)
+
+
+def augmentation(images):
+    sometimes = lambda aug: iaa.Sometimes(0.5, aug)
+
+    aug_seq = iaa.Sequential([
+        iaa.Noop(),
+        sometimes(iaa.Affine(translate_percent={
+            'x': (-0.2, 0.2), 'y': (-0.2, 0.2)
+        })),
+        sometimes(iaa.Affine(rotate=(-45, 45))),
+        sometimes(iaa.Add()),
+        sometimes(iaa.GaussianBlur(0.5))
+    ])
+
+    return aug_seq.augment_image(images)
+
+
 
