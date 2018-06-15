@@ -36,7 +36,7 @@ def load_datasets():
     return (datasets, class_labels)
 
 
-def augmentation(images):
+def augmentation(image):
     sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 
     aug_seq = iaa.Sequential([
@@ -49,7 +49,7 @@ def augmentation(images):
         sometimes(iaa.GaussianBlur(0.5))
     ])
 
-    return aug_seq.augment_image(images)
+    return aug_seq.augment_image(image)
 
 
 
