@@ -22,6 +22,7 @@ if __name__ == '__main__':
     resnet = ResNet50()
 
     model = Sequential()
+    model.add(resnet)
     model.add(Dropout(0.5))
     model.add(Dense(2,activation='softmax'))
 
