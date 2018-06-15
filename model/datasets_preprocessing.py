@@ -52,4 +52,8 @@ def augmentation(image):
     return aug_seq.augment_image(image)
 
 
+def shuffle_datasets(datasets,labels):
+    shuffle = np.array(range(len(labels)))
+    np.random.shuffle(shuffle)
 
+    return (datasets[shuffle],labels[shuffle])
