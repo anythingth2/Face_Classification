@@ -1,7 +1,7 @@
 from keras.applications.resnet50 import ResNet50
 from keras import Sequential
 from keras.layers.core import Dense,Dropout
-import model.datasets_preprocessing as datasets_preprocessing
+import datasets_preprocessing as datasets_preprocessing
 
 
 if __name__ == '__main__':
@@ -9,8 +9,8 @@ if __name__ == '__main__':
     datasets, class_labels = datasets_preprocessing.load_datasets()
 
     print('random augmentation datasets')
-    for img in datasets:
-        datasets = datasets_preprocessing.augment(img)
+    for i in range(len(datasets)):
+        datasets[i] = datasets_preprocessing.augment(datasets[i])
 
     print('normalize it!')
     datasets = datasets_preprocessing.normalize(datasets)
