@@ -49,11 +49,12 @@ def augment(image):
         sometimes(iaa.GaussianBlur(0.5))
     ])
 
-    return aug_seq.augment_image(image)
+
+    return normalize(aug_seq.augment_image(image))
 
 
-def normalize(datasets: np.ndarray):
-    return datasets.astype('float32') / 255
+def normalize(image: np.ndarray):
+    return image.astype('float32') / 255
 
 
 def shuffle_datasets(datasets, labels):

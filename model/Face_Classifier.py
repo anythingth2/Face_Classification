@@ -12,8 +12,8 @@ if __name__ == '__main__':
     for i in range(len(datasets)):
         datasets[i] = datasets_preprocessing.augment(datasets[i])
 
-    print('normalize it!')
-    datasets = datasets_preprocessing.normalize(datasets)
+    # print('normalize it!')
+    # datasets = datasets_preprocessing.normalize(datasets)
 
     print('shuffling')
     datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
