@@ -36,7 +36,7 @@ def load_datasets():
     return (datasets, class_labels)
 
 
-def augmentation(image):
+def augment(image):
     sometimes = lambda aug: iaa.Sometimes(0.5, aug)
 
     aug_seq = iaa.Sequential([
@@ -52,8 +52,12 @@ def augmentation(image):
     return aug_seq.augment_image(image)
 
 
-def shuffle_datasets(datasets,labels):
+def normalize(datasets: np.ndarray):
+    return datasets.astype('float32') / 255
+
+
+def shuffle_datasets(datasets, labels):
     shuffle = np.array(range(len(labels)))
     np.random.shuffle(shuffle)
 
-    return (datasets[shuffle],labels[shuffle])
+    return (datasets[shuffle], labels[shuffle])
