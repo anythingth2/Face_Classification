@@ -1,7 +1,7 @@
 from keras.applications.resnet50 import ResNet50
 from keras import Sequential
 from keras.layers.core import Dense,Dropout
-from model import datasets_preprocessing
+import model.datasets_preprocessing as datasets_preprocessing
 
 
 if __name__ == '__main__':
