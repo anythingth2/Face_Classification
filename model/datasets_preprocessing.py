@@ -5,7 +5,7 @@ import time
 from imgaug import augmenters as iaa
 
 datasets_path = 'datasets'
-
+datasets_aug_path = 'datasets_aug'
 IMG_SHAPE = (224, 224)
 
 
@@ -25,7 +25,7 @@ def load_datasets():
 
             print('loading {} class at {}'.format(label, image_path))
             img = cv2.imread(image_path)
-            img = cv2.resize(img, IMG_SHAPE)
+
 
             datasets.append(img)
             class_labels.append([1, 0] if label == 'faces' else [0, 1])
@@ -62,3 +62,5 @@ def shuffle_datasets(datasets, labels):
     np.random.shuffle(shuffle)
 
     return (datasets[shuffle], labels[shuffle])
+
+

@@ -26,14 +26,8 @@ if __name__ == '__main__':
     model.add(Dropout(0.5))
     model.add(Dense(2,activation='softmax'))
 
-    model.compile(optimizer='sgd',loss='categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
 
-    history = model.fit(datasets,class_labels,epochs=100,batch_size=32)
+    history = model.fit(datasets,class_labels,epochs=25,batch_size=32)
 
-    model.save_weights('weights/resnet_weight.h5')
-
-
-
-
-
-
+    model.save_weights('weights/resnet_weight.hdf5')
