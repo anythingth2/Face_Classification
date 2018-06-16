@@ -6,7 +6,7 @@ import datasets_preprocessing as datasets_preprocessing
 
 if __name__ == '__main__':
     print('load datasets')
-    datasets, class_labels = datasets_preprocessing.load_datasets()
+    datasets, class_labels = datasets_preprocessing.load_datasets(sample=0.5)
 
     print('random augmentation datasets')
     for i in range(len(datasets)):

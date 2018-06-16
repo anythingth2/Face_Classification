@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import os
+import random
 import time
 from imgaug import augmenters as iaa
 
@@ -9,7 +10,7 @@ datasets_aug_path = 'datasets_aug'
 IMG_SHAPE = (224, 224)
 
 
-def load_datasets():
+def load_datasets(sample=1):
     class_labels_path = os.listdir(datasets_path)
     print('Import {} class'.format(len(class_labels_path)))
     time.sleep(1)
@@ -21,6 +22,9 @@ def load_datasets():
         image_set_names = os.listdir(image_set_path)
 
         for image_name in image_set_names:
+	    if not (random.random() < sample):
+		return
+
             image_path = os.path.join(image_set_path, image_name)
 
             print('loading {} class at {}'.format(label, image_path))
