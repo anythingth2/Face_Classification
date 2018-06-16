@@ -33,6 +33,8 @@ def load_datasets():
     datasets = np.array(datasets)
     class_labels = np.array(class_labels)
 
+    datasets,class_labels = shuffle_datasets(datasets,class_labels)
+
     return (datasets, class_labels)
 
 

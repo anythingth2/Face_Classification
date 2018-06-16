@@ -11,12 +11,13 @@ if __name__ == '__main__':
     print('random augmentation datasets')
     for i in range(len(datasets)):
         datasets[i] = datasets_preprocessing.augment(datasets[i])
+        print('augment {} %'.format(i/len(datasets)))
 
     # print('normalize it!')
     # datasets = datasets_preprocessing.normalize(datasets)
 
-    print('shuffling')
-    datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
+    # print('shuffling')
+    # datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
 
     print('creating model')
     resnet = ResNet50()
