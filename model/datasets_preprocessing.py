@@ -22,8 +22,8 @@ def load_datasets(sample=1):
         image_set_names = os.listdir(image_set_path)
 
         for image_name in image_set_names:
-	    if not (random.random() < sample):
-		return
+            if not (random.random() < sample):
+                continue
 
             image_path = os.path.join(image_set_path, image_name)
 
