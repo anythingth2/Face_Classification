@@ -1,8 +1,9 @@
 from keras.applications.resnet50 import ResNet50
-from keras import Sequential
-from keras.layers.core import Dense,Dropout
+from keras import Sequential,Model
+from keras.layers.core import Dense,Dropout,Flatten
 import datasets_preprocessing as datasets_preprocessing
 
+model_path = 'model/resnet_model.json'
 
 if __name__ == '__main__':
     print('load datasets')
@@ -16,18 +17,23 @@ if __name__ == '__main__':
     # print('normalize it!')
     # datasets = datasets_preprocessing.normalize(datasets)
 
-    # print('shuffling')
-    # datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
+    print('shuffling')
+    datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
 
     print('creating model')
     resnet = ResNet50()
 
-    model = Sequential()
-    model.add(resnet)
-    model.add(Dropout(0.5))
-    model.add(Dense(2,activation='softmax'))
+    output = resnet.output
+    output = Dropout(0.5)(output)
+    output = Dense(2,activation='softmax')(output)
+
+
+    model = Model(resnet.input,output)
 
     model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+
+    with open(model_path,'w') as f:
+        f.write(model.to_json())
 
     history = model.fit(datasets,class_labels,epochs=25,batch_size=32)
 
