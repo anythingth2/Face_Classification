@@ -14,7 +14,7 @@ with open(model_path,'r') as f:
     model = model_from_json(modelJson)
 
 
-model.compile(optimizer='sgd',loss='categorical_crossentropy',metrics=['accuracy'])
+model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
 
 model.load_weights('weights/resnet_weight.hdf5')
 
@@ -26,10 +26,11 @@ while not cam.isOpened():
 while cam.isOpened():
     _,frame = cam.read()
     h,w = frame.shape[:2]
-    # predict_img = frame[:,(w-h)//2:w-(w-h)//2]
-    predict_img = frame
+    predict_img = frame[:,(w-h)//2:w-(w-h)//2]
+    # predict_img = frame
     predict_img = cv2.resize(predict_img,(224,224))
     predict_img = predict_img.astype('float32')/255
+
     predicted = model.predict(np.array([predict_img]))
     print(predicted)
 

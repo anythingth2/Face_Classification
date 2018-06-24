@@ -1,6 +1,6 @@
 from keras.applications.resnet50 import ResNet50
 from keras import Sequential,Model
-from keras.layers.core import Dense,Dropout,Flatten
+from keras.layers.core import Dense,Dropout,Flatten,Activation
 import datasets_preprocessing as datasets_preprocessing
 
 model_path = 'model/resnet_model.json'
@@ -24,6 +24,7 @@ if __name__ == '__main__':
     resnet = ResNet50()
 
     output = resnet.output
+    output = Activation('relu')(output)
     output = Dropout(0.5)(output)
     output = Dense(2,activation='softmax')(output)
 
@@ -35,6 +36,6 @@ if __name__ == '__main__':
     with open(model_path,'w') as f:
         f.write(model.to_json())
 
-    history = model.fit(datasets,class_labels,epochs=25,batch_size=32)
+    history = model.fit(datasets,class_labels,epochs=15,batch_size=32)
 
     model.save_weights('weights/resnet_weight.hdf5')

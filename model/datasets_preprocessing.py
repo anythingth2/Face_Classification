@@ -30,7 +30,6 @@ def load_datasets(sample=1):
             print('loading {} class at {}'.format(label, image_path))
             img = cv2.imread(image_path)
 
-
             datasets.append(img)
             class_labels.append([1, 0] if label == 'faces' else [0, 1])
 
