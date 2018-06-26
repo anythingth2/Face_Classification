@@ -7,11 +7,11 @@ model_path = 'model/resnet_model.json'
 
 if __name__ == '__main__':
     print('load datasets')
-    datasets, class_labels = datasets_preprocessing.load_datasets(sample=0.5)
+    datasets, class_labels = datasets_preprocessing.load_datasets(sample=0.25)
 
     print('random augmentation datasets')
     for i in range(len(datasets)):
-        datasets[i] = datasets_preprocessing.augment(datasets[i])
+        #datasets[i] = datasets_preprocessing.augment(datasets[i])
         print('augment {} %'.format(i/len(datasets)))
 
     # print('normalize it!')
@@ -25,17 +25,17 @@ if __name__ == '__main__':
 
     output = resnet.output
     output = Activation('relu')(output)
-    output = Dropout(0.5)(output)
+    output = Dropout(0.25)(output)
     output = Dense(2,activation='softmax')(output)
 
 
     model = Model(resnet.input,output)
 
-    model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 
     with open(model_path,'w') as f:
         f.write(model.to_json())
 
-    history = model.fit(datasets,class_labels,epochs=15,batch_size=32)
+    history = model.fit(datasets,class_labels,epochs=20,batch_size=32)
 
     model.save_weights('weights/resnet_weight.hdf5')

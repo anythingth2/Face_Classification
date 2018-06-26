@@ -4,7 +4,7 @@ import os
 import random
 import time
 from imgaug import augmenters as iaa
-
+from keras.utils import to_categorical
 datasets_path = 'datasets'
 datasets_aug_path = 'datasets_aug'
 IMG_SHAPE = (224, 224)
@@ -31,10 +31,11 @@ def load_datasets(sample=1):
             img = cv2.imread(image_path)
 
             datasets.append(img)
-            class_labels.append([1, 0] if label == 'faces' else [0, 1])
+            class_labels.append(1 if label == 'faces' else 0)
 
     datasets = np.array(datasets)
     class_labels = np.array(class_labels)
+    class_labels = to_categorical(class_labels,2)
 
     datasets,class_labels = shuffle_datasets(datasets,class_labels)
 
