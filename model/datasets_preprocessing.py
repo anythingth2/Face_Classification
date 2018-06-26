@@ -10,7 +10,7 @@ datasets_aug_path = 'datasets_aug'
 IMG_SHAPE = (224, 224)
 
 
-def load_datasets(sample=1):
+def load_datasets(sample=1,is_augment=False):
     class_labels_path = os.listdir(datasets_path)
     print('Import {} class'.format(len(class_labels_path)))
     time.sleep(1)
@@ -29,7 +29,10 @@ def load_datasets(sample=1):
 
             print('loading {} class at {}'.format(label, image_path))
             img = cv2.imread(image_path)
+            if is_augment:
+                img = augment(img)
 
+            img = normalize(img)
             datasets.append(img)
             class_labels.append(1 if label == 'faces' else 0)
 
@@ -56,7 +59,7 @@ def augment(image):
     ])
 
 
-    return normalize(aug_seq.augment_image(image))
+    return aug_seq.augment_image(image)
 
 
 def normalize(image: np.ndarray):

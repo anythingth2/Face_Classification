@@ -27,7 +27,6 @@ while cam.isOpened():
     _,frame = cam.read()
     h,w = frame.shape[:2]
     predict_img = frame[:,(w-h)//2:w-(w-h)//2]
-    # predict_img = frame
     predict_img = cv2.resize(predict_img,(224,224))
     predict_img = predict_img.astype('float32')/255
 

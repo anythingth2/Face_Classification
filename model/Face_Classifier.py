@@ -7,18 +7,7 @@ model_path = 'model/resnet_model.json'
 
 if __name__ == '__main__':
     print('load datasets')
-    datasets, class_labels = datasets_preprocessing.load_datasets(sample=0.25)
-
-    print('random augmentation datasets')
-    for i in range(len(datasets)):
-        #datasets[i] = datasets_preprocessing.augment(datasets[i])
-        print('augment {} %'.format(i/len(datasets)))
-
-    # print('normalize it!')
-    # datasets = datasets_preprocessing.normalize(datasets)
-
-    print('shuffling')
-    datasets, class_labels = datasets_preprocessing.shuffle_datasets(datasets, class_labels)
+    datasets, class_labels = datasets_preprocessing.load_datasets(sample=0.01,is_augment=False)
 
     print('creating model')
     resnet = ResNet50()
